@@ -1,12 +1,14 @@
-package com.dada.famoussaying
+package com.dada.famoussaying.presentation
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.dada.famoussaying.QuoteAdapter
+import com.dada.famoussaying.R
 import com.dada.famoussaying.databinding.ActivityListBinding
-import com.dada.famoussaying.db.Quote
+import com.dada.famoussaying.data.Quote
 
 
 class ListActivity : AppCompatActivity() {
@@ -23,7 +25,7 @@ class ListActivity : AppCompatActivity() {
 
         // 데이터 생성
         val quotes = listOf(
-            Quote(0, "산다는것 그것은 치열한 전투이다.", "로망로랑","2024-12-15")
+            Quote(0, "산다는 것 그것은 치열한 전투이다.", "로망로랑","2024-12-15")
         )
 
         // Adapter 설정

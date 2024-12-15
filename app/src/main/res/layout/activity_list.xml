@@ -10,7 +10,7 @@
 
         <Button
             android:id="@+id/homeBtn"
-            android:background="@color/main"
+            android:background="@drawable/buttonshape"
             android:layout_width="80dp"
             android:layout_height="50dp"
             android:layout_margin="20dp"

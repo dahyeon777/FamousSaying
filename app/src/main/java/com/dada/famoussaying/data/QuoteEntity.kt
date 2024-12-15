@@ -1,4 +1,4 @@
-package com.dada.famoussaying.db
+package com.dada.famoussaying.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

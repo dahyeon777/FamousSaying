@@ -13,14 +13,14 @@
         android:theme="@style/Theme.FamousSaying"
         tools:targetApi="34">
         <activity
-            android:name=".ListActivity"
+            android:name=".presentation.ListActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".presentation.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
