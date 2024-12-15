@@ -10,6 +10,7 @@
 
         <Button
             android:id="@+id/homeBtn"
+            android:background="@color/main"
             android:layout_width="80dp"
             android:layout_height="50dp"
             android:layout_margin="20dp"
@@ -17,9 +18,10 @@
             android:text="홈" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/quoteRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="20dp"/>
+            android:layout_margin="10dp" />
 
 
     </LinearLayout>

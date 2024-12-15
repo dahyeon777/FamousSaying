@@ -10,6 +10,7 @@
 
         <Button
             android:id="@+id/listViewBtn"
+            android:background="@color/main"
             android:text="기록"
             android:layout_gravity="right"
             android:layout_margin="20dp"
@@ -39,6 +40,7 @@
 
             <Button
                 android:id="@+id/randomBtn"
+                android:background="@color/main"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:textSize="25sp"
@@ -48,6 +50,7 @@
 
             <Button
                 android:id="@+id/saveBtn"
+                android:background="@color/main"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:textSize="25sp"
