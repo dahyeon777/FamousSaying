@@ -12,7 +12,6 @@ class QuoteAdapter(private val data: List<Quote>) : RecyclerView.Adapter<QuoteAd
     class QuoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val contentTextView: TextView = itemView.findViewById(R.id.contentTextView)
         val dateTextView: TextView = itemView.findViewById(R.id.dateTextView)
-        val nameTextView: TextView = itemView.findViewById(R.id.nameTextView)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuoteViewHolder {
@@ -24,7 +23,6 @@ class QuoteAdapter(private val data: List<Quote>) : RecyclerView.Adapter<QuoteAd
         val quote = data[position]
         holder.contentTextView.text = quote.content
         holder.dateTextView.text = quote.date.toString()
-        holder.nameTextView.text = quote.name
     }
 
     override fun getItemCount(): Int = data.size

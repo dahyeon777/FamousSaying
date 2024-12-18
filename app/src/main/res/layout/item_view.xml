@@ -3,11 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="60dp"
-    android:background="#8A9F85CE">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="59dp"
         android:orientation="horizontal">
 
         <TextView
@@ -29,23 +29,21 @@
             <TextView
                 android:id="@+id/dateTextView"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="match_parent"
                 android:text="12월 15일"
-                android:textSize="16sp"/>
+                android:textSize="14sp"/>
 
-            <TextView
-                android:id="@+id/nameTextView"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:text="키케로"
-                android:textSize="16sp"/>
+
         </LinearLayout>
 
-
-
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="#458F8F8F"/>
 
 
 </LinearLayout>
