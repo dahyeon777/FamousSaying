@@ -41,7 +41,8 @@ android {
 }
 
 dependencies {
-
+    // 코루틴 의존성 추가
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
 
 
     implementation 'androidx.core:core-ktx:1.7.0'

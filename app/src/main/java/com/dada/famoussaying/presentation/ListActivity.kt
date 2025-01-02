@@ -3,6 +3,7 @@ package com.dada.famoussaying.presentation
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +17,7 @@ import com.dada.famoussaying.data.QuoteDAO
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ListActivity : AppCompatActivity() {
 
@@ -49,37 +51,19 @@ class ListActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        /*// quoteText를 받아와 newQuote로 변환
-        val quoteText = intent.getStringExtra("QUOTE_TEXT")
-        var newQuote: Quote? = null
-
-        if (quoteText != null) {
-            newQuote = Quote(
-                id = 0,  // Room이 자동 생성할 수 있도록 0 또는 null 값 설정
-                content = quoteText,
-                date = "2024-12-17"  // 기본값 설정
-            )
-
-            // 비동기 작업으로 데이터베이스에 저장 및 RecyclerView 갱신
-            lifecycleScope.launch {
-                // 데이터베이스에 삽입
-                newQuote?.let { quoteDAO.insertQuote(it) }
-
-                // 전체 데이터를 불러와 RecyclerView 갱신
-                val updatedQuotes = quoteDAO.getAllQuotes()
-                quotes.clear()
-                quotes.addAll(updatedQuotes.reversed()) // 최신 항목이 위로 오도록 역순 정렬
-
-                // UI 작업은 메인 스레드에서 실행됨
-                adapter.notifyDataSetChanged()
+        lifecycleScope.launch {
+            val updatedQuotes = withContext(Dispatchers.IO) {
+                quoteDAO.getAllQuotes()  // 백그라운드 스레드에서 데이터 가져오기
             }
-        }*/
 
-        val updatedQuotes = quoteDAO.getAllQuotes()
-        quotes.clear()
-        quotes.addAll(updatedQuotes.reversed()) // 최신 항목이 위로 오도록 역순 정렬
+            // UI 업데이트는 Main 스레드에서 진행
+            updateUI(updatedQuotes)
+        }
 
-        // UI 작업은 메인 스레드에서 실행됨
-        adapter.notifyDataSetChanged()
+    }
+    private fun updateUI(updatedQuotes: List<Quote>) {
+
+
+
     }
 }

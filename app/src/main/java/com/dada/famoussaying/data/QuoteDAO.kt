@@ -6,16 +6,16 @@ import androidx.room.*
 interface QuoteDAO {
 
     @Insert
-    fun insertQuote(quote: Quote)
+    suspend fun insertQuote(quote: Quote)
 
     @Query ("SELECT * FROM Quote")
-    fun getAllQuotes(): List<Quote>
+    suspend fun getAllQuotes(): List<Quote>
 
     @Delete
-    fun deleteQuote(quote: Quote)
+    suspend fun deleteQuote(quote: Quote)
 
     @Update
-    fun updateQuote(quote: Quote)
+    suspend fun updateQuote(quote: Quote)
 
 }
 
