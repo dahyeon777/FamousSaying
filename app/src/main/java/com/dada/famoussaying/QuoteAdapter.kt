@@ -6,7 +6,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.dada.famoussaying.data.Quote
-import kotlin.text.Typography.quote
+import java.text.SimpleDateFormat
+import java.util.*
+
 
 class QuoteAdapter(private var data: List<Quote>) : RecyclerView.Adapter<QuoteAdapter.QuoteViewHolder>() {
 
@@ -23,7 +25,11 @@ class QuoteAdapter(private var data: List<Quote>) : RecyclerView.Adapter<QuoteAd
     override fun onBindViewHolder(holder: QuoteViewHolder, position: Int) {
         val quote = data[position]
         holder.contentTextView.text = quote.content
-        holder.dateTextView.text = quote.date.toString()
+
+        // Long 값을 Date로 변환하고, SimpleDateFormat을 사용하여 문자열로 변환
+        val date = Date(quote.date)
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()) // 날짜 형식 지정
+        holder.dateTextView.text = dateFormat.format(date)  // 형식에 맞는 날짜 문자열 설정
     }
 
     override fun getItemCount(): Int = data.size

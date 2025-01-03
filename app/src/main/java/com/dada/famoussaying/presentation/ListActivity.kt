@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
+import androidx.room.TypeConverter
 import com.dada.famoussaying.QuoteAdapter
 import com.dada.famoussaying.R
 import com.dada.famoussaying.data.AppDatabase
@@ -26,9 +27,12 @@ class ListActivity : AppCompatActivity() {
     private lateinit var quoteDAO: QuoteDAO
     private lateinit var adapter: QuoteAdapter  // RecyclerView 어댑터 선언
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_list)
+
+
 
         database = Room.databaseBuilder(
             applicationContext,

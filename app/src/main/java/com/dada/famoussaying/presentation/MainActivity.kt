@@ -48,11 +48,12 @@ class MainActivity : AppCompatActivity() {
 
         binding.saveBtn.setOnClickListener {
             val quoteText = binding.quoteTextView.text.toString()
+            val currentDate = System.currentTimeMillis() // 현재 시간 밀리초 값
             if (quoteText.isNotEmpty()) {
                 val newQuote = Quote(
                     id = 0,
                     content = quoteText,
-                    date = "2024-12-17"
+                    date = currentDate
                 )
 
                 lifecycleScope.launch {
