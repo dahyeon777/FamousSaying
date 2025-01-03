@@ -3,9 +3,11 @@ package com.dada.famoussaying.presentation
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
+import androidx.room.Dao
 import androidx.room.Room
 import com.dada.famoussaying.R
 import com.dada.famoussaying.data.AppDatabase
@@ -25,6 +27,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
+
+
         database = Room.databaseBuilder(
             applicationContext,
             AppDatabase::class.java,
@@ -34,6 +38,8 @@ class MainActivity : AppCompatActivity() {
 
         quoteDAO = database.quoteDAO()
 
+
+
         //기록 창 이동
         binding.listViewBtn.setOnClickListener {
             val intent = Intent(this, ListActivity::class.java)
@@ -41,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.saveBtn.setOnClickListener {
-            val quoteText = binding.textView.text.toString()
+            val quoteText = binding.quoteTextView.text.toString()
             if (quoteText.isNotEmpty()) {
                 val newQuote = Quote(
                     id = 0,
@@ -50,10 +56,15 @@ class MainActivity : AppCompatActivity() {
                 )
 
                 lifecycleScope.launch {
+
+                    val allData = quoteDAO.getAllQuotes()
+                    allData.forEach { println(it) }
+
                     try {
                         quoteDAO.insertQuote(newQuote)
                         runOnUiThread {
                             Toast.makeText(this@MainActivity, "저장되었습니다.", Toast.LENGTH_SHORT).show()
+                            Log.d("RoomData", allData.toString())
                         }
                     } catch (e: Exception) {
                         e.printStackTrace()
@@ -63,11 +74,8 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             } else {
-                Toast.makeText(this, "내용을 입력해주세요.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "저장이 실행되지 않았습니다.", Toast.LENGTH_SHORT).show()
             }
         }
-
-
-
     }
 }

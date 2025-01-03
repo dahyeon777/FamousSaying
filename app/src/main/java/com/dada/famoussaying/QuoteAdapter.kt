@@ -6,8 +6,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.dada.famoussaying.data.Quote
+import kotlin.text.Typography.quote
 
-class QuoteAdapter(private val data: List<Quote>) : RecyclerView.Adapter<QuoteAdapter.QuoteViewHolder>() {
+class QuoteAdapter(private var data: List<Quote>) : RecyclerView.Adapter<QuoteAdapter.QuoteViewHolder>() {
 
     class QuoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val contentTextView: TextView = itemView.findViewById(R.id.contentTextView)
@@ -26,4 +27,9 @@ class QuoteAdapter(private val data: List<Quote>) : RecyclerView.Adapter<QuoteAd
     }
 
     override fun getItemCount(): Int = data.size
+
+    fun updateData(newQuotes: List<Quote>) {
+        data = newQuotes
+        notifyDataSetChanged()
+    }
 }

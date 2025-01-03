@@ -24,7 +24,7 @@ class ListActivity : AppCompatActivity() {
     private lateinit var binding: ActivityListBinding
     private lateinit var database: AppDatabase
     private lateinit var quoteDAO: QuoteDAO
-    private val quotes = mutableListOf<Quote>()
+    private lateinit var adapter: QuoteAdapter  // RecyclerView 어댑터 선언
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,36 +34,36 @@ class ListActivity : AppCompatActivity() {
             applicationContext,
             AppDatabase::class.java,
             "quote_database"
-        ).fallbackToDestructiveMigration()  // 데이터베이스가 손상되면 새로 생성하도록 설정
+        ).fallbackToDestructiveMigration()
             .build()
 
         quoteDAO = database.quoteDAO()
 
-        // RecyclerView 설정
+        // RecyclerView 설정 (초기 빈 리스트)
         val recyclerView = binding.quoteRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(this)
-        val adapter = QuoteAdapter(quotes)
+        adapter = QuoteAdapter(emptyList()) // 초기 리스트는 빈 상태
         recyclerView.adapter = adapter
+
+        // 데이터 가져오기
+        lifecycleScope.launch {
+            val quotes = withContext(Dispatchers.IO) {
+                quoteDAO.getAllQuotes()  // 백그라운드에서 데이터 가져오기
+            }
+
+            // 데이터가 준비된 후 UI 업데이트
+            updateUI(quotes)
+        }
 
         // 홈 이동 버튼
         binding.homeBtn.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
-
-        lifecycleScope.launch {
-            val updatedQuotes = withContext(Dispatchers.IO) {
-                quoteDAO.getAllQuotes()  // 백그라운드 스레드에서 데이터 가져오기
-            }
-
-            // UI 업데이트는 Main 스레드에서 진행
-            updateUI(updatedQuotes)
-        }
-
     }
-    private fun updateUI(updatedQuotes: List<Quote>) {
 
-
-
+    private fun updateUI(quotes: List<Quote>) {
+        // RecyclerView 어댑터에 데이터 설정
+        adapter.updateData(quotes)
     }
 }
