@@ -43,10 +43,10 @@ class ListActivity : AppCompatActivity() {
 
         quoteDAO = database.quoteDAO()
 
-        // RecyclerView 설정 (초기 빈 리스트)
+        /// RecyclerView 설정 (초기 빈 리스트)
         val recyclerView = binding.quoteRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = QuoteAdapter(emptyList()) // 초기 리스트는 빈 상태
+        adapter = QuoteAdapter(mutableListOf()) // 초기 리스트를 빈 MutableList로 설정
         recyclerView.adapter = adapter
 
         // 데이터 가져오기
@@ -64,6 +64,7 @@ class ListActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
+
     }
 
     private fun updateUI(quotes: List<Quote>) {
