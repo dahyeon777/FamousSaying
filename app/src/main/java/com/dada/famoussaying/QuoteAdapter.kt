@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
+import com.dada.famoussaying.data.AppDatabase
 import com.dada.famoussaying.data.Quote
 import com.dada.famoussaying.data.QuoteDAO
 import kotlinx.coroutines.CoroutineScope
@@ -16,9 +18,13 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 private lateinit var quoteDAO: QuoteDAO
+private lateinit var database: AppDatabase
 
 
-class QuoteAdapter(private var data: MutableList<Quote>) : RecyclerView.Adapter<QuoteAdapter.QuoteViewHolder>() {
+class QuoteAdapter(
+    private var data: MutableList<Quote>,
+    private val onDeleteClick: (Quote) -> Unit // 삭제 콜백 추가
+) : RecyclerView.Adapter<QuoteAdapter.QuoteViewHolder>() {
 
     class QuoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val contentTextView: TextView = itemView.findViewById(R.id.contentTextView)
@@ -35,36 +41,20 @@ class QuoteAdapter(private var data: MutableList<Quote>) : RecyclerView.Adapter<
         val quote = data[position]
         holder.contentTextView.text = quote.content
 
-        // Long 값을 Date로 변환하고, SimpleDateFormat을 사용하여 문자열로 변환
         val date = Date(quote.date)
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()) // 날짜 형식 지정
-        holder.dateTextView.text = dateFormat.format(date)  // 형식에 맞는 날짜 문자열 설정
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        holder.dateTextView.text = dateFormat.format(date)
 
         // 삭제 버튼 클릭 리스너 설정
         holder.quoteDeleteButton.setOnClickListener {
-            // 해당 아이템을 삭제하고 RecyclerView 갱신
-            deleteItem(quote, position)
+            onDeleteClick(quote) // 콜백 호출
         }
     }
 
     override fun getItemCount(): Int = data.size
 
-    private fun deleteItem(quote: Quote, position: Int) {
-        // 데이터베이스에서 삭제
-        CoroutineScope(Dispatchers.IO).launch {
-            quoteDAO.deleteQuote(quote)  // 데이터베이스에서 삭제
-
-            // 메인 스레드에서 RecyclerView 갱신
-            withContext(Dispatchers.Main) {
-                // 데이터 리스트에서 삭제된 아이템 제거
-                data.removeAt(position) // MutableList에서 삭제
-                notifyItemRemoved(position) // 삭제된 아이템만 갱신
-            }
-        }
-    }
-
     fun updateData(newQuotes: List<Quote>) {
-        data = newQuotes.toMutableList() // 새 데이터를 MutableList로 변환하여 갱신
+        data = newQuotes.toMutableList()
         notifyDataSetChanged()
     }
 }
