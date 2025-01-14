@@ -3,12 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
+    android:layout_height="80dp"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="59dp"
+        android:layout_height="79dp"
         android:orientation="horizontal">
 
         <TextView
@@ -16,9 +16,12 @@
             android:padding="5dp"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+
             android:layout_weight="3"
             android:text="삶이 있는 한 희망은 있다"
-            android:textSize="16sp"/>
+            android:maxLines="2"
+            android:fontFamily="@font/bmyeonsung_ttf"
+            android:textSize="20sp"/>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -29,24 +32,25 @@
             <TextView
                 android:id="@+id/dateTextView"
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
+                android:layout_height="30dp"
+                android:paddingTop="5dp"
                 android:text="12월 15일"
-                android:textSize="14sp"/>
+                android:fontFamily="@font/bmyeonsung_ttf"
+                android:textSize="16sp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:weightSum="2">
+                android:layout_height="54dp"
+                android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/quoteDeleteButton"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="#e53232"
-                    android:text="X"
+                    android:background="#d84d47"
                     android:gravity="center"
+                    android:text="X"
                     tools:ignore="TouchTargetSizeCheck" />
 
                 <Button
@@ -54,7 +58,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:background="#71dd63"
+                    android:background="#5cba63"
                     android:text="✓"
                     tools:ignore="TouchTargetSizeCheck" />
 

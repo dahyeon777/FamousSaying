@@ -15,7 +15,9 @@
             android:layout_height="50dp"
             android:layout_margin="20dp"
             android:layout_gravity="right"
-            android:text="홈" />
+            android:text="홈"
+            android:textSize="20sp"
+            android:fontFamily="@font/bmyeonsung_ttf"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/quoteRecyclerView"
