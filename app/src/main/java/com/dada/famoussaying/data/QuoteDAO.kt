@@ -8,7 +8,7 @@ interface QuoteDAO {
     @Insert
     suspend fun insertQuote(quote: Quote)
 
-    @Query ("SELECT * FROM Quote")
+    @Query ("SELECT * FROM quote ORDER BY id DESC") //역순으로 가져오기
     suspend fun getAllQuotes(): List<Quote>
 
     @Delete
