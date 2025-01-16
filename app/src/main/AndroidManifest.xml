@@ -13,6 +13,13 @@
         android:theme="@style/Theme.FamousSaying"
         tools:targetApi="34">
         <activity
+            android:name=".presentation.SettingActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".presentation.ListActivity"
             android:exported="false">
             <meta-data

@@ -4,7 +4,10 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
+import android.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import androidx.room.Dao
@@ -23,13 +26,45 @@ class MainActivity : AppCompatActivity() {
     private lateinit var quoteDAO: QuoteDAO
     private val quotes = mutableListOf<Quote>()
 
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean{
+        menuInflater.inflate(R.menu.mainmenu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_settings -> { // 설정 아이콘 클릭 시
+                val intent = Intent(this, SettingActivity::class.java)
+                startActivity(intent)
+                true
+            }
+            android.R.id.home -> {
+                finish()  // 뒤로 가기 버튼 (홈 버튼)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
+        //ToolBar 초기화
+        val toolbar: androidx.appcompat.widget.Toolbar = binding.toolbar
+        setSupportActionBar(toolbar)
+
+        //뒤로 가기 버튼 추가
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        //툴바 제목 설정
+        supportActionBar?.title = "명언모음"
 
 
-        database = Room.databaseBuilder(
+
+
+       database = Room.databaseBuilder(
             applicationContext,
             AppDatabase::class.java,
             "quote_database"
@@ -100,6 +135,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.saveBtn.setOnClickListener {
+
             val quoteText = binding.quoteTextView.text.toString()
             val currentDate = System.currentTimeMillis() // 현재 시간 밀리초 값
             if (quoteText.isNotEmpty()) {
@@ -132,4 +168,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+
 }

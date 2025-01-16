@@ -8,16 +8,41 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/homeBtn"
-            android:background="@drawable/buttonshape"
-            android:layout_width="80dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_margin="20dp"
-            android:layout_gravity="right"
-            android:text="홈"
-            android:textSize="20sp"
-            android:fontFamily="@font/bmyeonsung_ttf"/>
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp">
+
+            <Button
+                android:id="@+id/homeBtn"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="20dp"
+                android:background="@drawable/buttonshape"
+                android:fontFamily="@font/bmyeonsung_ttf"
+                android:text="홈"
+                android:textSize="20sp"
+                android:layout_gravity="center_vertical" />
+
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2" />
+
+            <Switch
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="20dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/buttonshape"/>
+        </LinearLayout>
+
+
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/quoteRecyclerView"
