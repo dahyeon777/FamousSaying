@@ -39,10 +39,6 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
                 true
             }
-            android.R.id.home -> {
-                finish()  // 뒤로 가기 버튼 (홈 버튼)
-                true
-            }
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -54,9 +50,6 @@ class MainActivity : AppCompatActivity() {
         //ToolBar 초기화
         val toolbar: androidx.appcompat.widget.Toolbar = binding.toolbar
         setSupportActionBar(toolbar)
-
-        //뒤로 가기 버튼 추가
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         //툴바 제목 설정
         supportActionBar?.title = "명언모음"

@@ -8,6 +8,16 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/btn"
+            android:elevation="4dp"
+            android:title="@string/app_name"
+            app:titleTextColor="@color/white"/>
+
+
         <Button
             android:id="@+id/noticeBtn"
             android:layout_width="match_parent"
