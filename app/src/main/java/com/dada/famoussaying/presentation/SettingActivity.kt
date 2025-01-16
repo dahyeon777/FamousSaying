@@ -25,7 +25,7 @@ class SettingActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySettingBinding
 
 
-
+    //상태바 버튼들
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
 
@@ -75,6 +75,9 @@ class SettingActivity : AppCompatActivity() {
                 val channel = NotificationChannel(channelId, channelName, importance)
                 channel.description = "This is the default notification channel."
 
+                // 앱 배지 표시 비활성화
+                channel.setShowBadge(false)
+
                 val notificationManager =
                     context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
                 notificationManager.createNotificationChannel(channel)
@@ -90,6 +93,7 @@ class SettingActivity : AppCompatActivity() {
                 .setContentTitle("알림앱") // 알림 제목
                 .setContentText("명언~~~~~~~~~~~~~~~~~~~~~~~~~~~~") // 알림 내용
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT) // 알림 우선순위
+                .setOngoing(true) //지우기 눌러도 안지워지게 설정(영구알림)
 
             with(NotificationManagerCompat.from(context)) {
                 notify(notificationId, builder.build())
