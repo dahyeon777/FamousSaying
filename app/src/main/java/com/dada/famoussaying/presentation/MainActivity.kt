@@ -34,12 +34,21 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+
+            R.id.action_lists -> { // 설정 아이콘 클릭 시
+                val intent = Intent(this, ListActivity::class.java)
+                startActivity(intent)
+                true
+            }
+
             R.id.action_settings -> { // 설정 아이콘 클릭 시
                 val intent = Intent(this, SettingActivity::class.java)
                 startActivity(intent)
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
+
         }
     }
 
@@ -118,14 +127,6 @@ class MainActivity : AppCompatActivity() {
             binding.quoteTextView.setText(randomSentence)
         }
 
-
-
-
-        //기록 창 이동
-        binding.listViewBtn.setOnClickListener {
-            val intent = Intent(this, ListActivity::class.java)
-            startActivity(intent)
-        }
 
         binding.saveBtn.setOnClickListener {
 
