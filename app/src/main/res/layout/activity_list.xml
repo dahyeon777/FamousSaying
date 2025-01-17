@@ -22,6 +22,15 @@
             android:layout_height="30dp"
             />
 
+        <TextView
+            android:id="@+id/emptyTextView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="저장된 명언이 없습니다.\n메인 화면에서 명언을 작성하고 저장하세요."
+            android:paddingLeft="20dp"
+            android:textSize="20sp"
+            android:fontFamily="@font/bmyeonsung_ttf"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/quoteRecyclerView"
             android:layout_width="match_parent"

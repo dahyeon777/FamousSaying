@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -79,8 +80,16 @@ class ListActivity : AppCompatActivity() {
                 quoteDAO.getAllQuotes()
             }
             updateUI(quotes)
-        }
 
+            if (quotes.isEmpty()){
+                binding.emptyTextView.visibility = View.VISIBLE
+                recyclerView.visibility = View.GONE
+            }
+            else{
+                binding.emptyTextView.visibility = View.GONE
+                recyclerView.visibility = View.VISIBLE
+            }
+        }
     }
 
     // UI 업데이트
