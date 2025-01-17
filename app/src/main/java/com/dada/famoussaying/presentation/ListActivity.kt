@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,9 +28,31 @@ class ListActivity : AppCompatActivity() {
     private lateinit var quoteDAO: QuoteDAO
     private lateinit var adapter: QuoteAdapter
 
+    //툴바 설정
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+
+            android.R.id.home -> {
+                finish()  // 뒤로 가기 버튼 (홈 버튼)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_list)
+
+        //ToolBar 초기화
+        val toolbar: androidx.appcompat.widget.Toolbar = binding.toolbar
+        setSupportActionBar(toolbar)
+
+        //뒤로 가기 버튼 추가
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        //툴바 제목 설정
+        supportActionBar?.title = "명언을 선택하세요"
 
         // 데이터베이스 초기화
         database = Room.databaseBuilder(
@@ -58,11 +81,6 @@ class ListActivity : AppCompatActivity() {
             updateUI(quotes)
         }
 
-        // 홈 이동 버튼
-        binding.homeBtn.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-        }
     }
 
     // UI 업데이트

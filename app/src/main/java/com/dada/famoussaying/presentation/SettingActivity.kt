@@ -25,7 +25,7 @@ class SettingActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySettingBinding
 
 
-    //상태바 버튼들
+    //툴바 설정
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
 
