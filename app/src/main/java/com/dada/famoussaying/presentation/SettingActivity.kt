@@ -89,9 +89,9 @@ class SettingActivity : AppCompatActivity() {
             val notificationId = 1
 
             val builder = NotificationCompat.Builder(context, channelId)
-                .setSmallIcon(android.R.drawable.ic_dialog_info) // 알림 아이콘
+                .setSmallIcon(R.drawable.tokki) // 알림 아이콘
                 .setContentTitle("알림앱") // 알림 제목
-                .setContentText("명언~~~~~~~~~~~~~~~~~~~~~~~~~~~~") // 알림 내용
+                .setContentText("명언을 설정해주세요") // 알림 내용
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT) // 알림 우선순위
                 .setOngoing(true) //지우기 눌러도 안지워지게 설정(영구알림)
 

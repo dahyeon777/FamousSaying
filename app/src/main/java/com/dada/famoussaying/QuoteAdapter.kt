@@ -23,13 +23,15 @@ private lateinit var database: AppDatabase
 
 class QuoteAdapter(
     private var data: MutableList<Quote>,
-    private val onDeleteClick: (Quote) -> Unit // 삭제 콜백 추가
+    private val onDeleteClick: (Quote) -> Unit/*, // 삭제 콜백 추가
+    private val onQuoteSelected: (Quote) -> Unit // 선택된 명언 전달 콜백 추가*/
 ) : RecyclerView.Adapter<QuoteAdapter.QuoteViewHolder>() {
 
     class QuoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val contentTextView: TextView = itemView.findViewById(R.id.contentTextView)
         val dateTextView: TextView = itemView.findViewById(R.id.dateTextView)
         val quoteDeleteButton: Button = itemView.findViewById(R.id.quoteDeleteButton)
+        val quoteSelectButton: Button = itemView.findViewById(R.id.quoteSelectButton)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuoteViewHolder {
@@ -49,6 +51,11 @@ class QuoteAdapter(
         holder.quoteDeleteButton.setOnClickListener {
             onDeleteClick(quote) // 콜백 호출
         }
+
+        /*// 선택 버튼 클릭 리스너 설정
+        holder.quoteSelectButton.setOnClickListener {
+            onQuoteSelected(quote) // 선택된 명언 전달 콜백 호출
+        }*/
     }
 
     override fun getItemCount(): Int = data.size
