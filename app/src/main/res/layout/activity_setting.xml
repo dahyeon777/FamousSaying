@@ -22,7 +22,7 @@
             android:id="@+id/noticeBtn"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:text="상단바 알림 띄우기"/>
+            android:text="상단바 알림 켜기"/>
 
 
     </LinearLayout>
