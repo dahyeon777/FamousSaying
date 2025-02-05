@@ -53,7 +53,7 @@ class ListActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         //툴바 제목 설정
-        supportActionBar?.title = "명언을 선택하세요"
+        supportActionBar?.title = ""
 
         // 데이터베이스 초기화
         database = Room.databaseBuilder(

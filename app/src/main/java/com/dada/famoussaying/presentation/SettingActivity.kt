@@ -49,8 +49,8 @@ class SettingActivity : AppCompatActivity() {
         //뒤로 가기 버튼 추가
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        /*//툴바 제목 설정
-        supportActionBar?.title = "명언모음"*/
+        //툴바 제목 설정
+        supportActionBar?.title = " "
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {

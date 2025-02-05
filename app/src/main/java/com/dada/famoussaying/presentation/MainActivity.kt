@@ -61,7 +61,8 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         //툴바 제목 설정
-        supportActionBar?.title = "명언모음"
+        supportActionBar?.title = " "
+
 
 
 
