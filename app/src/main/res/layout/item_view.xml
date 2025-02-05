@@ -40,7 +40,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="54dp"
+                android:layout_height="50dp"
                 android:orientation="horizontal">
 
                 <Button
@@ -48,7 +48,8 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="#d84d47"
+                    android:textColor="#d84d47"
+                    android:background="#00FF0000"
                     android:gravity="center"
                     android:text="X"
                     tools:ignore="TouchTargetSizeCheck" />
@@ -56,10 +57,11 @@
                 <Button
                     android:id="@+id/quoteSelectButton"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="47dp"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:background="#5cba63"
+                    android:background="#00FF0000"
+                    android:textColor="#5cba63"
                     android:text="✓"
                     tools:ignore="TouchTargetSizeCheck" />
 
