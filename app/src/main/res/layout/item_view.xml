@@ -16,12 +16,10 @@
             android:padding="5dp"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-
             android:layout_weight="3"
             android:text="삶이 있는 한 희망은 있다"
             android:maxLines="2"
-            android:fontFamily="@font/bmyeonsung_ttf"
-            android:textSize="20sp"/>
+            android:textSize="16sp"/>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -35,8 +33,7 @@
                 android:layout_height="30dp"
                 android:paddingTop="5dp"
                 android:text="12월 15일"
-                android:fontFamily="@font/bmyeonsung_ttf"
-                android:textSize="16sp"/>
+                android:textSize="14sp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"

@@ -1,6 +1,7 @@
 package com.dada.famoussaying.presentation
 
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -53,7 +54,9 @@ class ListActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         //툴바 제목 설정
-        supportActionBar?.title = ""
+        supportActionBar?.title = "심플명언"
+        toolbar.setTitleTextColor(Color.BLACK)
+        toolbar.setBackgroundColor(Color.parseColor("#00FF0000"))
 
         // 데이터베이스 초기화
         database = Room.databaseBuilder(

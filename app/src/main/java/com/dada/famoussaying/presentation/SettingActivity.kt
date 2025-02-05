@@ -6,6 +6,7 @@ import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -50,7 +51,9 @@ class SettingActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         //툴바 제목 설정
-        supportActionBar?.title = " "
+        supportActionBar?.title = "심플명언"
+        toolbar.setTitleTextColor(Color.BLACK)
+        toolbar.setBackgroundColor(Color.parseColor("#00FF0000"))
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
