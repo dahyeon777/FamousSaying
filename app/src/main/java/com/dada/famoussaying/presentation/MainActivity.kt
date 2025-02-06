@@ -41,13 +41,6 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
                 true
             }
-
-            R.id.action_settings -> { // 설정 아이콘 클릭 시
-                val intent = Intent(this, SettingActivity::class.java)
-                startActivity(intent)
-                true
-            }
-
             else -> super.onOptionsItemSelected(item)
 
         }

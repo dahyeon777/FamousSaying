@@ -1,7 +1,12 @@
 package com.dada.famoussaying.presentation
 
-import android.content.Intent
+import android.Manifest
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import android.content.pm.PackageManager
 import android.graphics.Color
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -12,17 +17,20 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
-import androidx.room.TypeConverter
 import com.dada.famoussaying.QuoteAdapter
 import com.dada.famoussaying.R
 import com.dada.famoussaying.data.AppDatabase
 import com.dada.famoussaying.databinding.ActivityListBinding
 import com.dada.famoussaying.data.Quote
 import com.dada.famoussaying.data.QuoteDAO
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import androidx.activity.viewModels
+import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 
 class ListActivity : AppCompatActivity() {
 
@@ -47,6 +55,7 @@ class ListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_list)
 
+
         //ToolBar 초기화
         val toolbar: androidx.appcompat.widget.Toolbar = binding.toolbar
         setSupportActionBar(toolbar)
@@ -68,14 +77,65 @@ class ListActivity : AppCompatActivity() {
             .build()
         quoteDAO = database.quoteDAO()
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.POST_NOTIFICATIONS
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                    101
+                )
+            }
+        }
+
+        //상단바 알림설정
+        fun createNotificationChannel(context: Context) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                val channelId = "default_channel_id"
+                val channelName = "Default Channel"
+                val importance = NotificationManager.IMPORTANCE_DEFAULT
+                val channel = NotificationChannel(channelId, channelName, importance)
+                channel.description = "This is the default notification channel."
+
+                // 앱 배지 표시 비활성화
+                channel.setShowBadge(false)
+
+                val notificationManager =
+                    context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                notificationManager.createNotificationChannel(channel)
+            }
+        }
+
+
+
+        createNotificationChannel(this) // 앱 시작 시 채널 생성
+
         // RecyclerView 설정
         val recyclerView = binding.quoteRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        // 어댑터 생성 및 삭제 콜백 설정
-        adapter = QuoteAdapter(mutableListOf()) { quote ->
-            showDeleteConfirmationDialog(quote)
-        }
+        adapter = QuoteAdapter(
+            mutableListOf(),
+            onDeleteClick = { quote -> showDeleteConfirmationDialog(quote) },  // 삭제 버튼 클릭 시 실행
+            onSelectClick = { quote ->
+
+                // 다이얼로그 생성
+                val dialog = AlertDialog.Builder(this)
+                    .setMessage("해당 명언으로 알림이 띄워집니다.")
+                    .setPositiveButton("예") { _, _ ->
+                        // "예" 버튼 클릭 시 알림 호출
+                        showNotification(quote.content)
+                    }
+                    .setNegativeButton("아니오", null) // "아니오" 버튼 클릭 시 아무 동작하지 않음
+                    .create()
+
+                dialog.show()  // 다이얼로그 표시
+            }  // 선택 버튼 클릭 시 실행
+        )
+
         recyclerView.adapter = adapter
 
         // 데이터 가져오기
@@ -85,11 +145,10 @@ class ListActivity : AppCompatActivity() {
             }
             updateUI(quotes)
 
-            if (quotes.isEmpty()){
+            if (quotes.isEmpty()) {
                 binding.emptyTextView.visibility = View.VISIBLE
                 recyclerView.visibility = View.GONE
-            }
-            else{
+            } else {
                 binding.emptyTextView.visibility = View.GONE
                 recyclerView.visibility = View.VISIBLE
             }
@@ -117,11 +176,27 @@ class ListActivity : AppCompatActivity() {
     // 데이터 삭제 전에 다이얼로그 띄우기
     private fun showDeleteConfirmationDialog(quote: Quote) {
         AlertDialog.Builder(this)
-            .setMessage("정말 삭제하시겠습니까?")
-            .setPositiveButton("삭제") { _, _ ->
+            .setMessage("명언을 삭제하시겠습니까?")
+            .setPositiveButton("예") { _, _ ->
                 deleteQuote(quote) // '예'를 누르면 삭제 실행
             }
-            .setNegativeButton("취소", null) // '아니오' 버튼은 그냥 닫힘
+            .setNegativeButton("아니오", null) // '아니오' 버튼은 그냥 닫힘
             .show()
+    }
+
+    private fun showNotification(quoteContent: String) {
+        val channelId = "default_channel_id"  // 채널 ID
+        val notificationId = 1  // 알림 ID
+
+        val builder = NotificationCompat.Builder(this, channelId)
+            .setSmallIcon(R.drawable.alarm_icon) // 알림 아이콘
+            .setContentText(quoteContent) // 명언을 알림 내용으로 설정
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT) // 알림 우선순위
+            .setOngoing(true) // 지우기 눌러도 안 지워지게 설정 (영구 알림)
+            .setStyle(NotificationCompat.BigTextStyle().bigText(quoteContent)) // 긴 텍스트를 여러 줄로 표시
+
+        with(NotificationManagerCompat.from(this)) {
+            notify(notificationId, builder.build())
+        }
     }
 }
