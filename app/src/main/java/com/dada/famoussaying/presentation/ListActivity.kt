@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -73,7 +74,7 @@ class ListActivity : AppCompatActivity() {
 
         // 어댑터 생성 및 삭제 콜백 설정
         adapter = QuoteAdapter(mutableListOf()) { quote ->
-            deleteQuote(quote) // 삭제 콜백
+            showDeleteConfirmationDialog(quote)
         }
         recyclerView.adapter = adapter
 
@@ -111,5 +112,16 @@ class ListActivity : AppCompatActivity() {
             }
             updateUI(updatedQuotes) // UI 업데이트
         }
+    }
+
+    // 데이터 삭제 전에 다이얼로그 띄우기
+    private fun showDeleteConfirmationDialog(quote: Quote) {
+        AlertDialog.Builder(this)
+            .setMessage("정말 삭제하시겠습니까?")
+            .setPositiveButton("삭제") { _, _ ->
+                deleteQuote(quote) // '예'를 누르면 삭제 실행
+            }
+            .setNegativeButton("취소", null) // '아니오' 버튼은 그냥 닫힘
+            .show()
     }
 }
