@@ -24,7 +24,8 @@ private lateinit var database: AppDatabase
 class QuoteAdapter(
     private var data: MutableList<Quote>,
     private val onDeleteClick: (Quote) -> Unit,
-    private val onSelectClick: (Quote) -> Unit// 삭제 콜백 추가
+    private val onSelectClick: (Quote) -> Unit,// 삭제 콜백 추가
+    private val onQuoteClick: (Quote) -> Unit
 
 ) : RecyclerView.Adapter<QuoteAdapter.QuoteViewHolder>() {
 
@@ -56,6 +57,9 @@ class QuoteAdapter(
         // 선택 버튼 클릭 리스너 설정
         holder.quoteSelectButton.setOnClickListener {
             onSelectClick(quote)
+        }
+        holder.contentTextView.setOnClickListener{
+            onQuoteClick(quote)
         }
     }
 

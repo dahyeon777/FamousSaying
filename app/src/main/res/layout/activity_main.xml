@@ -3,10 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:background="@color/btn"
         tools:context=".presentation.MainActivity">
 
@@ -17,19 +16,22 @@
             android:background="@color/btn"
             android:elevation="4dp"
             android:title="@string/app_name"
-            app:titleTextColor="@color/white"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:titleTextColor="@color/white"
+            tools:ignore="MissingConstraints" />
 
 
         <EditText
             android:id="@+id/quoteTextView"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_marginTop="180dp"
-            android:layout_marginBottom="50dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:hint="명언을 작성하고 저장한 후,\n 알림버튼을 눌러 설정하세요."
+            android:layout_marginBottom="140dp"
             android:gravity="center"
+            android:hint="명언을 작성하고 저장한 후,\n 알림버튼을 눌러 설정하세요."
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -40,31 +42,33 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_margin="20dp"
-            android:layout_gravity="bottom"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/quoteTextView">
 
             <Button
                 android:id="@+id/randomBtn"
-                android:background="@drawable/buttonshape"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:textSize="20sp"
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
+                android:background="@drawable/buttonshape"
                 android:text="추천명언"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="20sp" />
 
             <Button
                 android:id="@+id/saveBtn"
-                android:background="@drawable/buttonshape"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:textSize="20sp"
                 android:layout_marginLeft="5dp"
                 android:layout_weight="1"
+                android:background="@drawable/buttonshape"
                 android:text="저장"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="20sp" />
 
         </LinearLayout>
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -12,6 +12,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
@@ -31,6 +32,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
+import androidx.core.widget.addTextChangedListener
 
 class ListActivity : AppCompatActivity() {
 
@@ -147,7 +149,31 @@ class ListActivity : AppCompatActivity() {
                     .create()
 
                 dialog.show()  // 다이얼로그 표시
-            }  // 선택 버튼 클릭 시 실행
+            },  // 선택 버튼 클릭 시 실행
+            // 기존 코드 내 onQuoteClick 수정 부분
+            onQuoteClick = { quote ->
+
+                // 수정할 내용을 입력할 다이얼로그 생성
+                val editText = EditText(this).apply {
+                    setText(quote.content) // 기존 명언 내용을 입력창에 표시
+                }
+
+                // 수정할 내용 변수
+                var newContent = quote.content
+
+                val dialog = AlertDialog.Builder(this)
+                    .setView(editText)  // EditText를 다이얼로그에 추가
+                    .setPositiveButton("수정하기") { _, _ ->
+                        // 수정된 내용을 저장하는 로직
+                        newContent = editText.text.toString() // 예 버튼을 클릭하면 EditText에서 수정된 텍스트를 가져옴
+                        val updatedQuote = quote.copy(content = newContent)
+                        updateQuoteInDatabase(updatedQuote)  // 데이터베이스 업데이트
+                    }
+                    .setNegativeButton("취소", null) // 취소 버튼 클릭 시 아무 동작 안 함
+                    .create()
+
+                dialog.show() // 다이얼로그 표시
+            }
         )
 
         recyclerView.adapter = adapter
@@ -187,6 +213,8 @@ class ListActivity : AppCompatActivity() {
         }
     }
 
+
+
     // 데이터 삭제 전에 다이얼로그 띄우기
     private fun showDeleteConfirmationDialog(quote: Quote) {
         AlertDialog.Builder(this)
@@ -211,6 +239,20 @@ class ListActivity : AppCompatActivity() {
 
         with(NotificationManagerCompat.from(this)) {
             notify(notificationId, builder.build())
+        }
+    }
+
+    // 데이터베이스에서 명언을 업데이트하는 함수
+    private fun updateQuoteInDatabase(updatedQuote: Quote) {
+        lifecycleScope.launch {
+            withContext(Dispatchers.IO) {
+                quoteDAO.updateQuote(updatedQuote) // 데이터베이스에서 업데이트
+            }
+            // 업데이트 후 UI를 갱신
+            val updatedQuotes = withContext(Dispatchers.IO) {
+                quoteDAO.getAllQuotes()
+            }
+            updateUI(updatedQuotes)
         }
     }
 }
