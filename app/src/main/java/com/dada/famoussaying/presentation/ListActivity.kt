@@ -64,7 +64,7 @@ class ListActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         //툴바 제목 설정
-        supportActionBar?.title = "심플명언"
+        supportActionBar?.title = "상단알림 명언"
         toolbar.setTitleTextColor(Color.BLACK)
         toolbar.setBackgroundColor(Color.parseColor("#00FF0000"))
 
@@ -121,6 +121,20 @@ class ListActivity : AppCompatActivity() {
             mutableListOf(),
             onDeleteClick = { quote -> showDeleteConfirmationDialog(quote) },  // 삭제 버튼 클릭 시 실행
             onSelectClick = { quote ->
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    if (ContextCompat.checkSelfPermission(
+                            this,
+                            Manifest.permission.POST_NOTIFICATIONS
+                        ) != PackageManager.PERMISSION_GRANTED
+                    ) {
+                        ActivityCompat.requestPermissions(
+                            this,
+                            arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                            101
+                        )
+                    }
+                }
 
                 // 다이얼로그 생성
                 val dialog = AlertDialog.Builder(this)

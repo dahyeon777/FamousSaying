@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         //툴바 제목 설정
-        supportActionBar?.title = "심플명언"
+        supportActionBar?.title = "상단알림 명언"
         toolbar.setTitleTextColor(Color.BLACK)
         toolbar.setBackgroundColor(Color.parseColor("#00FF0000"))
 
@@ -155,7 +155,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             } else {
-                Toast.makeText(this, "저장이 실행되지 않았습니다.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "저장되지 않았습니다.", Toast.LENGTH_SHORT).show()
             }
         }
     }
