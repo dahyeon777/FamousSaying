@@ -54,13 +54,14 @@
                 <Button
                     android:id="@+id/quoteSelectButton"
                     android:layout_width="0dp"
-                    android:layout_height="47dp"
+                    android:layout_height="48dp"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:background="#00FF0000"
                     android:textColor="#5cba63"
                     android:text="✓"
                     tools:ignore="TouchTargetSizeCheck" />
+
 
 
             </LinearLayout>

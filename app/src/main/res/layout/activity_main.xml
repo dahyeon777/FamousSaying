@@ -30,7 +30,7 @@
             android:layout_marginRight="20dp"
             android:hint="명언을 작성하고 저장하세요"
             android:gravity="center"
-            android:textSize="26sp"
+            android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

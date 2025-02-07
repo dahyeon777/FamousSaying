@@ -7,6 +7,6 @@
     <item
         android:id="@+id/action_lists"
         android:title="Lists"
-        android:icon="@drawable/list_icon"
+        android:icon="@drawable/ring_icon_png"
         app:showAsAction="ifRoom|withText" />
 </menu>
