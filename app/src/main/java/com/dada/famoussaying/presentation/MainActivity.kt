@@ -70,11 +70,6 @@ class MainActivity : AppCompatActivity() {
         toolbar.setTitleTextColor(Color.BLACK)
         toolbar.setBackgroundColor(Color.parseColor("#00FF0000"))
 
-
-
-
-
-
        database = Room.databaseBuilder(
             applicationContext,
             AppDatabase::class.java,
@@ -192,7 +187,6 @@ class MainActivity : AppCompatActivity() {
                 "사람의 얼굴은 하나의 풍경이다. 한권의 책이다. 얼굴은 결코 거짓말을 하지 않는다. - 오노레 드 발자크",
                 "실패는 고痛스럽다. 그러나 최선을 다하지 못했음을 깨닫는 것은 몇 배 더 고통스럽다. - 앤드류 매튜스",
                 "이 세상을 움직이는 힘은 희망이다. 얼마 후 성장하여 새로운 종자를 얻을 수 있다는 희망이 없다면, 농부는 밭에 씨를 뿌리지 않는다. 아이가 태어난다고 하는 희망이 없다면 젊은이는 결혼을 할 수가 없다. 이익을 얻게 된다는 희망이 없다면 장사꾼은 장사를 할 수가 없다. - 마틴 루터"
-
             )
 
             // 랜덤으로 하나의 문장 선택
@@ -202,9 +196,7 @@ class MainActivity : AppCompatActivity() {
             binding.quoteTextView.setText(randomSentence)
         }
 
-
         binding.saveBtn.setOnClickListener {
-
             val quoteText = binding.quoteTextView.text.toString()
             val currentDate = System.currentTimeMillis() // 현재 시간 밀리초 값
             if (quoteText.isNotEmpty()) {
@@ -215,10 +207,8 @@ class MainActivity : AppCompatActivity() {
                 )
 
                 lifecycleScope.launch {
-
                     val allData = quoteDAO.getAllQuotes()
                     allData.forEach { println(it) }
-
                     try {
                         quoteDAO.insertQuote(newQuote)
                         runOnUiThread {
@@ -237,6 +227,4 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
-
 }

@@ -111,8 +111,6 @@ class ListActivity : AppCompatActivity() {
             }
         }
 
-
-
         createNotificationChannel(this) // 앱 시작 시 채널 생성
 
         // RecyclerView 설정
@@ -123,7 +121,6 @@ class ListActivity : AppCompatActivity() {
             mutableListOf(),
             onDeleteClick = { quote -> showDeleteConfirmationDialog(quote) },  // 삭제 버튼 클릭 시 실행
             onSelectClick = { quote ->
-
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                     if (ContextCompat.checkSelfPermission(
                             this,
@@ -147,12 +144,10 @@ class ListActivity : AppCompatActivity() {
                     }
                     .setNegativeButton("아니오", null) // "아니오" 버튼 클릭 시 아무 동작하지 않음
                     .create()
-
                 dialog.show()  // 다이얼로그 표시
             },  // 선택 버튼 클릭 시 실행
             // 기존 코드 내 onQuoteClick 수정 부분
             onQuoteClick = { quote ->
-
                 // 수정할 내용을 입력할 다이얼로그 생성
                 val editText = EditText(this).apply {
                     setText(quote.content) // 기존 명언 내용을 입력창에 표시
@@ -164,15 +159,14 @@ class ListActivity : AppCompatActivity() {
                 val dialog = AlertDialog.Builder(this)
                     .setView(editText)  // EditText를 다이얼로그에 추가
                     .setPositiveButton("수정하기") { _, _ ->
-                        // 수정된 내용을 저장하는 로직
-                        newContent = editText.text.toString() // 예 버튼을 클릭하면 EditText에서 수정된 텍스트를 가져옴
+                        newContent = editText.text.toString()
                         val updatedQuote = quote.copy(content = newContent)
                         updateQuoteInDatabase(updatedQuote)  // 데이터베이스 업데이트
                     }
-                    .setNegativeButton("취소", null) // 취소 버튼 클릭 시 아무 동작 안 함
+                    .setNegativeButton("취소", null)
                     .create()
 
-                dialog.show() // 다이얼로그 표시
+                dialog.show()
             }
         )
 
@@ -220,9 +214,9 @@ class ListActivity : AppCompatActivity() {
         AlertDialog.Builder(this)
             .setMessage("명언을 삭제하시겠습니까?")
             .setPositiveButton("예") { _, _ ->
-                deleteQuote(quote) // '예'를 누르면 삭제 실행
+                deleteQuote(quote)
             }
-            .setNegativeButton("아니오", null) // '아니오' 버튼은 그냥 닫힘
+            .setNegativeButton("아니오", null)
             .show()
     }
 
