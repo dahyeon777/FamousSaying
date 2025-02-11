@@ -18,7 +18,12 @@ import com.dada.famoussaying.data.AppDatabase
 import com.dada.famoussaying.data.Quote
 import com.dada.famoussaying.data.QuoteDAO
 import com.dada.famoussaying.databinding.ActivityMainBinding
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import kotlinx.coroutines.launch
+import com.google.android.gms.ads.AdRequest
+
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,7 +31,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var database: AppDatabase
     private lateinit var quoteDAO: QuoteDAO
     private val quotes = mutableListOf<Quote>()
-
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean{
         menuInflater.inflate(R.menu.mainmenu, menu)
@@ -49,6 +53,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+        // 광고 초기화
+        MobileAds.initialize(this) {}
+
+        // 광고 요청 및 로드
+        val adRequest = AdRequest.Builder().build()
+        binding.adView.loadAd(adRequest)
 
         //ToolBar 초기화
         val toolbar: androidx.appcompat.widget.Toolbar = binding.toolbar

@@ -18,7 +18,7 @@
             android:layout_height="match_parent"
             android:layout_weight="3"
             android:text="삶이 있는 한 희망은 있다"
-            android:maxLines="2"
+            android:maxLines="3"
             android:textSize="16sp"/>
 
         <LinearLayout
